@@ -1,10 +1,11 @@
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
 import Title from '../components/ui/Title';
 import { useEffect, useState } from 'react';
 import NumberContainer from '../components/game/NumberContainer';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Card from '../components/ui/Card';
+import ListItem from '../components/game/ListItem';
 
 const generateRandomBetween = (min, max, exclude) => {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -19,15 +20,16 @@ const generateRandomBetween = (min, max, exclude) => {
 let minBoundary = 1;
 let maxBoundary = 100;
 
-const GameScreen = ({ userChoice, onGameOver }) => {
+const GameScreen = ({ userChoice, onGameOver, countGuesses }) => {
   const initialGuess = generateRandomBetween(1, 100, userChoice);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
+  const [rounds, setRounds] = useState([initialGuess]);
 
   useEffect(() => {
     if (currentGuess === userChoice) {
       onGameOver();
     }
-  }, [currentGuess, userChoice, onGameOver]);
+  }, [currentGuess, countGuesses, userChoice, onGameOver]);
 
   const nextGuessHandler = (direction) => {
     if (
@@ -50,7 +52,12 @@ const GameScreen = ({ userChoice, onGameOver }) => {
       currentGuess
     );
     setCurrentGuess(newRndNumber);
+    setRounds((prevRounds) => [newRndNumber, ...prevRounds]);
+
+    countGuesses((prevCount) => prevCount + 1);
   };
+
+  const guessRoundsLength = rounds.length;
 
   return (
     <View style={styles.container}>
@@ -66,6 +73,15 @@ const GameScreen = ({ userChoice, onGameOver }) => {
           </PrimaryButton>
         </View>
       </Card>
+      <View style={styles.listWrapper}>
+        <FlatList
+          keyExtractor={(item, index) => index.toString()}
+          data={rounds}
+          renderItem={({ item, index }) => (
+            <ListItem roundNumber={guessRoundsLength - index} guess={item} />
+          )}
+        />
+      </View>
     </View>
   );
 };
@@ -85,6 +101,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     paddingHorizontal: 15,
+  },
+  listWrapper: {
+    marginVertical: 20,
+    padding: 20,
+    flex: 1,
+  },
+  listItem: {
+    borderColor: '#ccc',
+    padding: 15,
+    marginVertical: 10,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    width: '100%',
   },
 });
 

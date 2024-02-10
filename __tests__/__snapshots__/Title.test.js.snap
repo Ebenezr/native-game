@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card renders Card correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#72063c",
+      "borderRadius": 10,
+      "elevation": 5,
+      "justifyContent": "center",
+      "marginHorizontal": 20,
+      "marginTop": 40,
+      "padding": 20,
+      "shadowColor": "black",
+      "shadowOffset": {
+        "height": 2,
+        "width": 0,
+      },
+      "shadowOpacity": 0.26,
+      "shadowRadius": 6,
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "color": "white",
+        "fontSize": 20,
+        "fontWeight": "bold",
+      }
+    }
+  >
+    Test Title
+  </Text>
+  Test Children
+</View>
+`;
+
+exports[`Title renders Title correctly 1`] = `
+<Text
+  style={
+    {
+      "borderColor": "#fff",
+      "borderWidth": 2,
+      "color": "#fff",
+      "fontFamily": "open-sans-bold",
+      "fontSize": 24,
+      "padding": 12,
+      "textAlign": "center",
+    }
+  }
+>
+  Test Title
+</Text>
+`;

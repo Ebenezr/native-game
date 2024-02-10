@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     textAlign: 'center',
+    fontFamily: 'open-sans-bold',
   },
   buttonContainer: {
     margin: 8,

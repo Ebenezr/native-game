@@ -8,12 +8,12 @@ const Title = ({ title }) => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
     color: Colors.white,
     textAlign: 'center',
     borderWidth: 2,
     borderColor: Colors.white,
     padding: 12,
+    fontFamily: 'open-sans-bold',
   },
 });
 

@@ -1,4 +1,11 @@
-import { Alert, FlatList, StyleSheet, Text, View } from 'react-native';
+import {
+  Alert,
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Title from '../components/ui/Title';
 import { useEffect, useState } from 'react';
 import NumberContainer from '../components/game/NumberContainer';
@@ -86,11 +93,14 @@ const GameScreen = ({ userChoice, onGameOver, countGuesses }) => {
   );
 };
 
+const deviceWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 80,
+    alignItems: 'center',
   },
   screen: {
     flex: 1,

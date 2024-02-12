@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import Title from '../components/ui/Title';
 import Colors from '../constants/colors';
 import PrimaryButton from '../components/ui/PrimaryButton';
@@ -23,25 +23,24 @@ const GameOverScreen = ({ onRestart, userChoice, guessCount }) => {
         <PrimaryButton onPress={onRestart}>
           <Text>New Game</Text>
         </PrimaryButton>
-        {/* <PrimaryButton onPress={() => {}}>
-          <Text>Exit Game</Text>
-        </PrimaryButton> */}
       </View>
     </View>
   );
 };
 
+const deviceWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-
     paddingHorizontal: 20,
     paddingVertical: 80,
+    alignItems: 'center',
   },
   imageWrapper: {
-    borderRadius: 150,
-    height: 300,
-    width: 300,
+    borderRadius: deviceWidth < 380 ? 75 : 150,
+    height: deviceWidth < 380 ? 150 : 300,
+    width: deviceWidth < 380 ? 150 : 300,
     borderWidth: 3,
     borderColor: Colors.primaryColor,
     overflow: 'hidden',

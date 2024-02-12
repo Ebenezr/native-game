@@ -1,9 +1,24 @@
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  useWindowDimensions,
+} from 'react-native';
 import Colors from '../../constants/colors';
 
 const NumberContainer = ({ children }) => {
+  const { width, height } = useWindowDimensions();
+
+  const paddingDistance = height < 380 ? 12 : 20;
+
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { padding: paddingDistance, margin: paddingDistance },
+      ]}
+    >
       <Text style={styles.numberText}>{children}</Text>
     </View>
   );
@@ -15,9 +30,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 2,
     borderColor: Colors.accentColor,
-    padding: deviceWidth < 380 ? 12 : 20,
     borderRadius: 10,
-    margin: deviceWidth < 380 ? 12 : 20,
     alignItems: 'center',
     justifyContent: 'center',
   },

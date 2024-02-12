@@ -2,9 +2,11 @@ import {
   Alert,
   Dimensions,
   FlatList,
+  ScrollView,
   StyleSheet,
   Text,
   View,
+  useWindowDimensions,
 } from 'react-native';
 import Title from '../components/ui/Title';
 import { useEffect, useState } from 'react';
@@ -28,6 +30,7 @@ let minBoundary = 1;
 let maxBoundary = 100;
 
 const GameScreen = ({ userChoice, onGameOver, countGuesses }) => {
+  const { width, height } = useWindowDimensions();
   const initialGuess = generateRandomBetween(1, 100, userChoice);
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
   const [rounds, setRounds] = useState([initialGuess]);
@@ -66,40 +69,47 @@ const GameScreen = ({ userChoice, onGameOver, countGuesses }) => {
 
   const guessRoundsLength = rounds.length;
 
+  const marginTopDistance = height < 380 ? 30 : 80;
+
   return (
-    <View style={styles.container}>
-      <Title title="Opponent's Guess" />
-      <Card title='Select higher or lower'>
-        <NumberContainer>{currentGuess}</NumberContainer>
-        <View style={styles.buttonWrapper}>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
-            <AntDesign name='minuscircle' size={24} color='white' />
-          </PrimaryButton>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
-            <AntDesign name='pluscircle' size={24} color='white' />
-          </PrimaryButton>
+    <ScrollView style={styles.screen}>
+      <View style={[styles.container, { marginTop: marginTopDistance }]}>
+        <Title title="Opponent's Guess" />
+        <Card title='Select higher or lower'>
+          <NumberContainer>{currentGuess}</NumberContainer>
+          <View style={styles.buttonWrapper}>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
+              <AntDesign name='minuscircle' size={24} color='white' />
+            </PrimaryButton>
+            <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
+              <AntDesign name='pluscircle' size={24} color='white' />
+            </PrimaryButton>
+          </View>
+        </Card>
+        <View style={styles.listWrapper}>
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            data={rounds}
+            renderItem={({ item, index }) => (
+              <ListItem roundNumber={guessRoundsLength - index} guess={item} />
+            )}
+          />
         </View>
-      </Card>
-      <View style={styles.listWrapper}>
-        <FlatList
-          keyExtractor={(item, index) => index.toString()}
-          data={rounds}
-          renderItem={({ item, index }) => (
-            <ListItem roundNumber={guessRoundsLength - index} guess={item} />
-          )}
-        />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const deviceWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingVertical: 80,
+    // paddingVertical: 80,
     alignItems: 'center',
   },
   screen: {

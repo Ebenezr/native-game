@@ -1,13 +1,30 @@
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import Title from '../components/ui/Title';
 import Colors from '../constants/colors';
 import PrimaryButton from '../components/ui/PrimaryButton';
 
 const GameOverScreen = ({ onRestart, userChoice, guessCount }) => {
+  const { width, height } = useWindowDimensions();
+  const marginTopDistance = height < 380 ? 30 : 80;
+  const imageHeight = height < 380 ? 150 : 300;
+  const margin = height < 380 ? 18 : 36;
+
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { marginTop: marginTopDistance }]}>
       <Title title='Game Over!' />
-      <View style={styles.imageWrapper}>
+      <View
+        style={[
+          styles.imageWrapper,
+          { height: imageHeight, width: imageHeight, margin: margin },
+        ]}
+      >
         <Image
           style={styles.image}
           source={require('../assets/images/success.png')}
@@ -34,7 +51,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingVertical: 80,
+    // paddingVertical: 80,
     alignItems: 'center',
   },
   imageWrapper: {

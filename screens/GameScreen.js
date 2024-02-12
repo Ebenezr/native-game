@@ -72,31 +72,29 @@ const GameScreen = ({ userChoice, onGameOver, countGuesses }) => {
   const marginTopDistance = height < 380 ? 30 : 80;
 
   return (
-    <ScrollView style={styles.screen}>
-      <View style={[styles.container, { marginTop: marginTopDistance }]}>
-        <Title title="Opponent's Guess" />
-        <Card title='Select higher or lower'>
-          <NumberContainer>{currentGuess}</NumberContainer>
-          <View style={styles.buttonWrapper}>
-            <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
-              <AntDesign name='minuscircle' size={24} color='white' />
-            </PrimaryButton>
-            <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
-              <AntDesign name='pluscircle' size={24} color='white' />
-            </PrimaryButton>
-          </View>
-        </Card>
-        <View style={styles.listWrapper}>
-          <FlatList
-            keyExtractor={(item, index) => index.toString()}
-            data={rounds}
-            renderItem={({ item, index }) => (
-              <ListItem roundNumber={guessRoundsLength - index} guess={item} />
-            )}
-          />
+    <View style={[styles.container, { marginTop: marginTopDistance }]}>
+      <Title title="Opponent's Guess" />
+      <Card title='Select higher or lower'>
+        <NumberContainer>{currentGuess}</NumberContainer>
+        <View style={styles.buttonWrapper}>
+          <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
+            <AntDesign name='minuscircle' size={24} color='white' />
+          </PrimaryButton>
+          <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
+            <AntDesign name='pluscircle' size={24} color='white' />
+          </PrimaryButton>
         </View>
+      </Card>
+      <View style={styles.listWrapper}>
+        <FlatList
+          keyExtractor={(item, index) => index.toString()}
+          data={rounds}
+          renderItem={({ item, index }) => (
+            <ListItem roundNumber={guessRoundsLength - index} guess={item} />
+          )}
+        />
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

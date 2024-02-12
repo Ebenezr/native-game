@@ -11,7 +11,7 @@ import Colors from '../constants/colors';
 import PrimaryButton from '../components/ui/PrimaryButton';
 
 const GameOverScreen = ({ onRestart, userChoice, guessCount }) => {
-  const { width, height } = useWindowDimensions();
+  const { height } = useWindowDimensions();
   const marginTopDistance = height < 380 ? 30 : 80;
   const imageHeight = height < 380 ? 150 : 300;
   const margin = height < 380 ? 18 : 36;
@@ -45,7 +45,7 @@ const GameOverScreen = ({ onRestart, userChoice, guessCount }) => {
   );
 };
 
-const deviceWidth = Dimensions.get('window').width;
+const deviceWidth = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   screen: {
